@@ -1,5 +1,9 @@
 #include "monty.h"
-
+void monty_push(stack_t **stack, unsigned int line_number);
+void monty_pall(stack_t **stack, unsigned int line_number);
+void monty_pint(stack_t **stack, unsigned int line_number);
+void monty_pop(stack_t **stack, unsigned int line_number);
+void monty_swap(stack_t **stack, unsigned int line_number);
 
 /**
  * add_to_stack - Adds a node to the stack.
@@ -22,7 +26,22 @@ void add_to_stack(stack_t **new_node, __attribute__((unused))unsigned int ln)
 	head->next = tmp;
 	tmp->prev = head;
 }
+/**
+ * monty_pall - Prints the values of a stack_t linked list.
+ * @stack: A pointer to the top mode node of a stack_t linked list.
+ * @line_number: The current working line number of a Monty bytecodes file.
+ */
+void monty_pall(stack_t **stack, unsigned int line_number)
+{
+	stack_t *tmp = (*stack)->next;
 
+	while (tmp)
+	{
+		printf("%d\n", tmp->n);
+		tmp = tmp->next;
+	}
+	(void)line_number;
+}
 
 /**
  * print_stack - Adds a node to the stack.
@@ -73,4 +92,19 @@ void print_top(stack_t **stack, unsigned int line_number)
 	if (stack == NULL || *stack == NULL)
 		more_err(6, line_number);
 	printf("%d\n", (*stack)->n);
+}
+/**
+ * monty_pint - Prints the top value of a stack_t linked list.
+ * @stack: A pointer to the top mode node of a stack_t linked list.
+ * @line_number: The current working line number of a Monty bytecodes file.
+ */
+void monty_pint(stack_t **stack, unsigned int line_number)
+{
+	if ((*stack)->next == NULL)
+	{
+		set_op_tok_error(pint_error(line_number));
+		return;
+	}
+
+	printf("%d\n", (*stack)->next->n);
 }
