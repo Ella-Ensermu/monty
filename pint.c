@@ -1,19 +1,19 @@
 #include "monty.h"
 /**
- * print_top - prints the top element
- * @stack_head: stack head
- * @line_num: line number
+ * f_pint - prints the top
+ * @head: stack head
+ * @counter: line_number
  * Return: no return
 */
-void print_top(stack_t **stack_head, unsigned int line_num)
+void f_pint(node_t **head, unsigned int counter)
 {
-	if (*stack_head == NULL)
+	if (*head == NULL)
 	{
-		fprintf(stderr, "L%u: can't print, stack empty\n", line_num);
-		fclose(bus.file);
-		free(bus.content);
-		free_stack(*stack_head);
+		fprintf(stderr, "L%u: can't pint, stack empty\n", counter);
+		fclose(data.file);
+		free(data.content);
+		free_node(*head);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", (*stack_head)->n);
+	printf("%d\n", (*head)->n);
 }
