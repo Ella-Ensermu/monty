@@ -49,7 +49,7 @@ extern data_t data;
 typedef struct instruction_s
 {
     char *opcode;
-    void (*f)(node_t **stack, unsigned int line_number);
+    void (*f)(node_t **node, unsigned int line_number);
 } instruction_t;
 char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
 ssize_t getstdin(char **lineptr, int file);
@@ -58,7 +58,7 @@ void f_push(node_t **head, unsigned int number);
 void f_pall(node_t **head, unsigned int number);
 void f_pint(node_t **head, unsigned int number);
 int execute(char *content, node_t **head, unsigned int counter, FILE *file);
-void free_stack(node_t *head);
+void free_node(node_t *head);
 void f_pop(node_t **head, unsigned int counter);
 void f_swap(node_t **head, unsigned int counter);
 void f_add(node_t **head, unsigned int counter);
