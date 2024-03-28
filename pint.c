@@ -9,7 +9,7 @@ void f_pint(node_t **head, unsigned int counter)
 {
 	if (*head == NULL)
 	{
-		fprintf(stderr, "L%u: can't pint, stack empty\n", counter);
+		fprintf(stderr, "L%u: can't pint, node empty\n", counter);
 		fclose(data.file);
 		free(data.content);
 		free_node(*head);
