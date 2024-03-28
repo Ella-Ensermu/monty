@@ -1,40 +1,45 @@
 #include "monty.h"
+/**
+ * f_push - add node to the stack
+ * @head: stack head
+ * @counter: line_number
+ * Return: no return
+*/
 
-void add_node(stack_t **top, unsigned int line_num)
+void f_push(node_t **head, unsigned int counter)
 {
-	int num, i = 0, invalid = 0;
+	int value, j = 0, invalid = 0;
 
-	if (monty_data.argument)
+	if (data.arg)
 	{
-		if (monty_data.argument[0] == '-')
-			i++;
-		for (; monty_data.argument[i] != '\0'; i++)
+		if (data.arg[0] == '-')
+			j++;
+		for (; data.arg[j] != '\0'; j++)
 		{
-			if (monty_data.argument[i] > 57 || monty_data.argument[i] < 48)
-				invalid = 1;
-		}
+			if (data.arg[j] > 57 || data.arg[j] < 48)
+				invalid = 1; }
 		if (invalid == 1)
+
 		{
-			fprintf(stderr, "L%d: usage: push integer\n", line_num);
-			fclose(monty_data.file);
-			free(monty_data.content);
-			free_stack(*top);
-			exit(EXIT_FAILURE);
-		}
-	}
+			fprintf(stderr, "L%d: usage: push integer\n", counter);
+			fclose(data.file);
+			free(data.content);
+			free_node(*head);
+			exit(EXIT_FAILURE); }}
+
 	else
 	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_num);
-		fclose(monty_data.file);
-		free(monty_data.content);
-		free_stack(*top);
-		exit(EXIT_FAILURE);
+		fclose(data.file);
+		free(data.content);
+		free_node(*head);
+		exit(EXIT_FAILURE); }
+
 	}
 
-	num = atoi(monty_data.argument);
-
-	if (monty_data.lifo == 0)
-		add_node_top(top, num);
+	value =atoi(data.arg);
+	if (bus.lifo == 0)
+		addnode(head, value);
 	else
-		add_node_bottom(top, num);
+		addqueue(head, value);
 }
+
