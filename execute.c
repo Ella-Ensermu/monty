@@ -1,52 +1,52 @@
 #include "monty.h"
 /**
-* perform - executes the operation
-* @stack: head linked list - stack
+* execute - executes the opcode
+* @node: head linked list - node
 * @counter: line_counter
 * @file: poiner to monty file
 * @content: line content
 * Return: no return
 */
-int perform(char *content, stack_t **stack, unsigned int counter, FILE *file)
+int execute(char *content, node_t **node, unsigned int counter, FILE *file)
 {
-	instruction_t operations[] = {
-				{"push", op_push}, {"pall", op_pall}, {"pint", op_pint},
-				{"pop", op_pop},
-				{"swap", op_swap},
-				{"add", op_add},
-				{"nop", op_nop},
-				{"sub", op_sub},
-				{"div", op_div},
-				{"mul", op_mul},
-				{"mod", op_mod},
-				{"pchar", op_pchar},
-				{"pstr", op_pstr},
-				{"rotl", op_rotl},
-				{"rotr", op_rotr},
-				{"queue", op_queue},
-				{"stack", op_stack},
+	instruction_t opst[] = {
+				{"push", f_push}, {"pall", f_pall}, {"pint", f_pint},
+				{"pop", f_pop},
+				{"swap", f_swap},
+				{"add", f_add},
+				{"nop", f_nop},
+				{"sub", f_sub},
+				{"div", f_div},
+				{"mul", f_mul},
+				{"mod", f_mod},
+				{"pchar", f_pchar},
+				{"pstr", f_pstr},
+				{"rotl", f_rotl},
+				{"rotr", f_rotr},
+				{"queue", f_queue},
+				{"stack", f_stack},
 				{NULL, NULL}
 				};
 	unsigned int i = 0;
-	char *operation;
+	char *op;
 
-	operation = strtok(content, " \n\t");
-	if (operation && operation[0] == '#')
+	op = strtok(content, " \n\t");
+	if (op && op[0] == '#')
 		return (0);
-	bus.arg = strtok(NULL, " \n\t");
-	while (operations[i].opcode && operation)
+	data.arg = strtok(NULL, " \n\t");
+	while (opst[i].opcode && op)
 	{
-		if (strcmp(operation, operations[i].opcode) == 0)
-		{	operations[i].f(stack, counter);
+		if (strcmp(op, opst[i].opcode) == 0)
+		{	opst[i].f(node, counter);
 			return (0);
 		}
 		i++;
 	}
-	if (operation && operations[i].opcode == NULL)
-	{ fprintf(stderr, "L%d: unknown instruction %s\n", counter, operation);
+	if (op && opst[i].opcode == NULL)
+	{ fprintf(stderr, "L%d: unknown instruction %s\n", counter, op);
 		fclose(file);
 		free(content);
-		free_stack(*stack);
+		free_node(*node);
 		exit(EXIT_FAILURE); }
 	return (1);
 }
